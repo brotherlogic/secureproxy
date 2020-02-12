@@ -71,5 +71,6 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%v", server.Serve())
+	h := handler{}
+	fmt.Printf("%v", server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(h.handler)))
 }
