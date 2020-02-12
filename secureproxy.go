@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"sort"
 
 	"github.com/brotherlogic/goserver"
 	"golang.org/x/net/context"
@@ -16,6 +17,7 @@ import (
 //Server main server type
 type Server struct {
 	*goserver.GoServer
+	passes map[string]int
 }
 
 // Init builds the server
@@ -48,9 +50,15 @@ func (s *Server) Mote(ctx context.Context, master bool) error {
 
 // GetState gets the state of the server
 func (s *Server) GetState() []*pbg.State {
-	return []*pbg.State{
-		&pbg.State{Key: "no", Value: int64(233)},
+	ret := []*pbg.State{}
+	for key, count := range s.passes {
+		ret = append(ret, &pbg.State{Key: key, Value: int64(count)})
 	}
+
+	sort.SliceStable(ret, func(i, j int) bool {
+		return ret[i].Key < ret[j].Key
+	})
+	return ret
 }
 
 func main() {
