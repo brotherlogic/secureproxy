@@ -4,6 +4,6 @@ import (
 	"testing"
 )
 
-func BasicTest(t *testing.T) {
-	//Pass
+func TestNothing(t *testing.T) {
+	doNothing()
 }
