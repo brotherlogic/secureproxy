@@ -18,4 +18,4 @@ before_install:
 
 script:
 - fgt golint $(find . | grep .go$ | grep -v secureproxy.pb.go)
-- $HOME/gopath/bin/goveralls -service=travis-ci -ignore=secureproxy.go -package github.com/brotherlogic/secureproxy
+- $HOME/gopath/bin/goveralls -service=travis-ci -ignore=codec.go,secureproxy.go,secureproxy_handler.go -package github.com/brotherlogic/secureproxy
