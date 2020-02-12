@@ -17,7 +17,7 @@ import (
 //Server main server type
 type Server struct {
 	*goserver.GoServer
-	passes map[string]int
+	handler handler
 }
 
 // Init builds the server
@@ -51,7 +51,7 @@ func (s *Server) Mote(ctx context.Context, master bool) error {
 // GetState gets the state of the server
 func (s *Server) GetState() []*pbg.State {
 	ret := []*pbg.State{}
-	for key, count := range s.passes {
+	for key, count := range s.handler.passes {
 		ret = append(ret, &pbg.State{Key: key, Value: int64(count)})
 	}
 
@@ -79,6 +79,6 @@ func main() {
 		return
 	}
 
-	h := handler{}
-	fmt.Printf("%v", server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(h.handler)))
+	server.handler = handler{}
+	fmt.Printf("%v", server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(server.handler.handler)))
 }
