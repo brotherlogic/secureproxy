@@ -26,7 +26,9 @@ var (
 	}
 )
 
-type handler struct{}
+type handler struct {
+	passes map[string]int
+}
 
 func getCtx(ctx context.Context) context.Context {
 	md, _ := metadata.FromIncomingContext(ctx)
@@ -40,6 +42,7 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 	if !ok {
 		return fmt.Errorf("Bad name")
 	}
+	s.passes[fullMethodName]++
 	parts := strings.Split(fullMethodName[1:], ".")
 
 	outgoingCtx := getCtx(serverStream.Context())
