@@ -64,7 +64,8 @@ func (s *Server) GetState() []*pbg.State {
 }
 
 func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
-	parts := strings.Split(req.URL.Path, "/")
+	// Remove the / prefix
+	parts := strings.Split(req.URL.Path[1:], "/")
 
 	if len(parts) != 2 {
 		resp.Write([]byte("Unable to handle this currently"))
@@ -80,7 +81,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	service := parts[0]
 	method := parts[1]
 
-	s.Log(fmt.Sprintf("[%+v -> %v] Handling %v/%v with %v", req.URL, parts, service, method, string(bodyd)))
+	s.handle(service, method, string(bodyd))
 }
 
 func (s *Server) serveUp(port int) error {
