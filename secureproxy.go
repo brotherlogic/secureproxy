@@ -8,26 +8,44 @@ import (
 	"net/http"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/brotherlogic/goserver"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
+	bspb "github.com/brotherlogic/beerserver/proto"
 	pbg "github.com/brotherlogic/goserver/proto"
+	"github.com/brotherlogic/goserver/utils"
 )
 
 //Server main server type
 type Server struct {
 	*goserver.GoServer
 	handler handler
+	cmap    map[string]interface{}
+	dialler dialler
 }
 
 // Init builds the server
 func Init() *Server {
 	s := &Server{
 		GoServer: &goserver.GoServer{},
+		cmap:     make(map[string]interface{}),
+		dialler:  &prodDialler{},
 	}
+
+	s.buildClients()
+
 	return s
+}
+
+func (s *Server) buildClients() {
+	s.cmap["beer.BeerCellarService"] = bspb.NewBeerCellarServiceClient
+}
+
+func (s *Server) add(key string, val interface{}) {
+	s.cmap[key] = val
 }
 
 // DoRegister does RPC registration
@@ -81,11 +99,23 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	service := parts[0]
 	method := parts[1]
 
-	s.handle(service, method, string(bodyd))
+	ctx, cancel := utils.ManualContext("secureproxy", "secureproxy", time.Minute*5)
+	defer cancel()
+	s.handle(ctx, service, method, string(bodyd))
 }
 
 func (s *Server) serveUp(port int) error {
 	return http.ListenAndServe(fmt.Sprintf(":%v", port), s)
+}
+
+type dialler interface {
+	dial() (*grpc.ClientConn, error)
+}
+
+type prodDialler struct{}
+
+func (p *prodDialler) dial() (*grpc.ClientConn, error) {
+	return grpc.Dial("discovery:///secureproxy", grpc.WithInsecure())
 }
 
 func main() {
