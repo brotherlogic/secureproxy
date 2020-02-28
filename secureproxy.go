@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"sort"
 
 	"github.com/brotherlogic/goserver"
@@ -61,6 +62,17 @@ func (s *Server) GetState() []*pbg.State {
 	return ret
 }
 
+func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
+	s.Log(fmt.Sprintf("Handling: %+v", req))
+
+	resp.Write([]byte("Unable to handle this currently"))
+	resp.WriteHeader(400)
+}
+
+func (s *Server) serveUp(port int) error {
+	return http.ListenAndServe(fmt.Sprintf(":%v", port), s)
+}
+
 func main() {
 	var quiet = flag.Bool("quiet", false, "Show all output")
 	flag.Parse()
@@ -78,6 +90,13 @@ func main() {
 	if err != nil {
 		return
 	}
+
+	go func() {
+		err := server.serveUp(int(server.Registry.Port - 1))
+		if err != nil {
+			log.Fatalf("Unable to serve http traffic: %v", err)
+		}
+	}()
 
 	server.handler = handler{passes: make(map[string]int)}
 	fmt.Printf("%v", server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(server.handler.handler)))
