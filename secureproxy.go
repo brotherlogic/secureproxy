@@ -101,7 +101,12 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 
 	ctx, cancel := utils.ManualContext("secureproxy", "secureproxy", time.Minute*5)
 	defer cancel()
-	s.handle(ctx, service, method, string(bodyd))
+	res, err := s.handle(ctx, service, method, string(bodyd))
+
+	if err != nil {
+		s.Log(fmt.Sprintf("Error in handler: %v", err))
+	}
+	s.Log(fmt.Sprintf("Resolved: %v", res))
 }
 
 func (s *Server) serveUp(port int) error {
