@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"sort"
+	"strings"
 
 	"github.com/brotherlogic/goserver"
 	"golang.org/x/net/context"
@@ -63,10 +64,23 @@ func (s *Server) GetState() []*pbg.State {
 }
 
 func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
-	s.Log(fmt.Sprintf("Handling: %+v", req))
+	parts := strings.Split(req.URL.Path, "/")
 
-	resp.Write([]byte("Unable to handle this currently"))
-	resp.WriteHeader(400)
+	if len(parts) != 2 {
+		resp.Write([]byte("Unable to handle this currently"))
+		resp.WriteHeader(400)
+	}
+
+	defer req.Body.Close()
+	bodyd, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.Log(fmt.Sprintf("Cannot read body: %v", err))
+	}
+
+	service := parts[0]
+	method := parts[1]
+
+	s.Log(fmt.Sprintf("Handling %v/%v with %v", service, method, string(bodyd)))
 }
 
 func (s *Server) serveUp(port int) error {
