@@ -80,7 +80,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	service := parts[0]
 	method := parts[1]
 
-	s.Log(fmt.Sprintf("Handling %v/%v with %v", service, method, string(bodyd)))
+	s.Log(fmt.Sprintf("[%+v -> %v] Handling %v/%v with %v", req.URL, parts, service, method, string(bodyd)))
 }
 
 func (s *Server) serveUp(port int) error {
