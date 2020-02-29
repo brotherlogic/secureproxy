@@ -14,7 +14,7 @@ import (
 
 func TestBuildClient(t *testing.T) {
 	s := Init()
-	client, err := s.buildClient("beer.BeerCellarService")
+	client, err := s.buildClient("beerserver.BeerCellarService")
 
 	if err != nil {
 		t.Errorf("Error in building client: %v,%v", err, client)
@@ -135,7 +135,7 @@ func TestBuildData(t *testing.T) {
 	log.Printf("Marshal to: %v from %v", str, req)
 
 	s := InitTest()
-	data, err := s.buildRequest("beer.ListBeerRequest", []byte(str))
+	data, err := s.buildRequest("beerserver.ListBeerRequest", []byte(str))
 
 	if err != nil {
 		t.Errorf("Bad Build: %v", err)
