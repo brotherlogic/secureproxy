@@ -139,7 +139,7 @@ func main() {
 	server.PrepServer()
 	server.Register = server
 
-	err := server.RegisterServerV2("secureproxy", false, false)
+	err := server.RegisterServerV2("secureproxy", true, false)
 	if err != nil {
 		return
 	}
