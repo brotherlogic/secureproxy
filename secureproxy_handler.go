@@ -45,6 +45,10 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 	s.passes[fullMethodName]++
 	parts := strings.Split(fullMethodName[1:], ".")
 
+	if true {
+		return fmt.Errorf("Unauthorized request")
+	}
+
 	outgoingCtx := getCtx(serverStream.Context())
 	backendConn, err := grpc.Dial("discovery:///"+parts[0], grpc.WithInsecure(), grpc.WithCodec(Codec()))
 	if err != nil {
