@@ -50,7 +50,6 @@ func (s *Server) handle(ctx context.Context, service, method, data string) (stri
 	marshaler := &jsonpb.Marshaler{}
 	str, _ := marshaler.MarshalToString(results[0].Interface().(proto.Message))
 
-	s.Log(fmt.Sprintf("Returning"))
 	return str, err
 }
 
