@@ -109,6 +109,10 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 		resp.Write([]byte(fmt.Sprintf("%v", err)))
 	}
 
+	resp.Header().Set("Access-Control-Allow-Origin", "*")
+	resp.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	resp.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
+
 	resp.Write([]byte(res))
 }
 
