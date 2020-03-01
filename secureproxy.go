@@ -43,7 +43,7 @@ func Init() *Server {
 
 func (s *Server) buildClients() {
 	s.cmap["beerserver.BeerCellarService"] = bspb.NewBeerCellarServiceClient
-	s.cmap["login.LongService"] = lpb.NewLoginServiceClient
+	s.cmap["login.LoginService"] = lpb.NewLoginServiceClient
 }
 
 func (s *Server) add(key string, val interface{}) {
