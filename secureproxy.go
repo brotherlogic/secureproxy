@@ -17,6 +17,7 @@ import (
 	bspb "github.com/brotherlogic/beerserver/proto"
 	pbg "github.com/brotherlogic/goserver/proto"
 	"github.com/brotherlogic/goserver/utils"
+	lpb "github.com/brotherlogic/login/proto"
 )
 
 //Server main server type
@@ -42,6 +43,7 @@ func Init() *Server {
 
 func (s *Server) buildClients() {
 	s.cmap["beerserver.BeerCellarService"] = bspb.NewBeerCellarServiceClient
+	s.cmap["login.LongService"] = lpb.NewLoginServiceClient
 }
 
 func (s *Server) add(key string, val interface{}) {
