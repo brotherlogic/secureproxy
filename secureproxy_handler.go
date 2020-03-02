@@ -45,8 +45,8 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 	s.passes[fullMethodName]++
 	parts := strings.Split(fullMethodName[1:], ".")
 
-	if true {
-		return fmt.Errorf("Unauthorized request")
+	if fullMethodName != "LoginService/Login" {
+		return fmt.Errorf("%v is an unauthorized request", fullMethodName)
 	}
 
 	outgoingCtx := getCtx(serverStream.Context())
