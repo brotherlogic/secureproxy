@@ -45,7 +45,7 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 	s.passes[fullMethodName]++
 	parts := strings.Split(fullMethodName[1:], ".")
 
-	if fullMethodName != "LoginService/Login" {
+	if fullMethodName != "/login.LoginService/Login" {
 		return fmt.Errorf("%v is an unauthorized request", fullMethodName)
 	}
 
