@@ -107,7 +107,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 
 	if err != nil {
 		s.Log(fmt.Sprintf("Error in handler: %v", err))
-		resp.WriteHeader(400)
+		resp.WriteHeader(500)
 		resp.Write([]byte(fmt.Sprintf("%v", err)))
 	}
 
