@@ -90,6 +90,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	if len(parts) != 2 {
 		resp.Write([]byte("Unable to handle this currently"))
 		resp.WriteHeader(400)
+		return
 	}
 
 	defer req.Body.Close()
@@ -109,6 +110,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 		s.Log(fmt.Sprintf("Error in handler: %v", err))
 		resp.WriteHeader(500)
 		resp.Write([]byte(fmt.Sprintf("%v", err)))
+		return
 	}
 
 	resp.Header().Set("Access-Control-Allow-Origin", "*")
