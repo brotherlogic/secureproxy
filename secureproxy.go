@@ -121,7 +121,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 }
 
 func (s *Server) serveUp(port int) error {
-	return http.ListenAndServeTLS(fmt.Sprintf(":%v", port), "/home/simon/https-server.crt", "https-server.key", s)
+	return http.ListenAndServeTLS(fmt.Sprintf(":%v", port), "/home/simon/https-server.crt", "/home/simon/https-server.key", s)
 }
 
 type dialler interface {
