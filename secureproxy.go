@@ -84,6 +84,7 @@ func (s *Server) GetState() []*pbg.State {
 }
 
 func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
+	s.Log(fmt.Sprintf("Handling Request: %v", req.URL.Path))
 	// Remove the / prefix
 	parts := strings.Split(req.URL.Path[1:], "/")
 
@@ -121,7 +122,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 }
 
 func (s *Server) serveUp(port int) error {
-	return http.ListenAndServeTLS(fmt.Sprintf(":%v", port), "/home/simon/https-server.crt", "/home/simon/https-server.key", s)
+	return http.ListenAndServe(fmt.Sprintf(":%v", port), s)
 }
 
 type dialler interface {
