@@ -93,7 +93,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	parts := strings.Split(req.URL.Path[1:], "/")
 
 	// Straight through return (200 OK)
-	if len(parts) != 2 {
+	if len(parts) != 2 || req.Method != "POST" {
 		return
 	}
 
