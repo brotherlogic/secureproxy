@@ -92,9 +92,8 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	// Remove the / prefix
 	parts := strings.Split(req.URL.Path[1:], "/")
 
+	// Straight through return (200 OK)
 	if len(parts) != 2 {
-		resp.Write([]byte("Unable to handle this currently"))
-		resp.WriteHeader(400)
 		return
 	}
 
