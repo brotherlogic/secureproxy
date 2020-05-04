@@ -6,10 +6,10 @@ import (
 	"log"
 	"testing"
 
+	"github.com/golang/protobuf/jsonpb"
 	"google.golang.org/grpc"
 
 	bspb "github.com/brotherlogic/beerserver/proto"
-	"github.com/golang/protobuf/jsonpb"
 )
 
 func TestBuildClient(t *testing.T) {
@@ -56,6 +56,10 @@ func (t *testBeerServer) AddBeer(ctx context.Context, in *bspb.AddBeerRequest, o
 }
 
 func (t *testBeerServer) DeleteBeer(ctx context.Context, in *bspb.DeleteBeerRequest, opts ...grpc.CallOption) (*bspb.DeleteBeerResponse, error) {
+	return nil, nil
+}
+
+func (t *testBeerServer) Consolidate(ctx context.Context, in *bspb.ConsolidateRequest, opts ...grpc.CallOption) (*bspb.ConsolidateResponse, error) {
 	return nil, nil
 }
 
