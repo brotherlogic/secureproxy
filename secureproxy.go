@@ -159,6 +159,6 @@ func main() {
 		}
 	}()
 
-	server.handler = handler{passes: make(map[string]int)}
+	server.handler = handler{passes: make(map[string]int), log: server.Log}
 	fmt.Printf("%v", server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(server.handler.handler)))
 }

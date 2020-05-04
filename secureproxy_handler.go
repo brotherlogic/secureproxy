@@ -28,6 +28,7 @@ var (
 
 type handler struct {
 	passes map[string]int
+	log    func(string)
 }
 
 func getCtx(ctx context.Context) context.Context {
@@ -45,6 +46,7 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 	s.passes[fullMethodName]++
 	parts := strings.Split(fullMethodName[1:], ".")
 
+	s.log(fmt.Sprintf("Handling %v", fullMethodName))
 	if fullMethodName != "/login.LoginService/Login" {
 		return fmt.Errorf("%v is an unauthorized request", fullMethodName)
 	}
