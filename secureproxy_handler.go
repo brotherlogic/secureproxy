@@ -47,7 +47,21 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 	parts := strings.Split(fullMethodName[1:], ".")
 	outgoingCtx := getCtx(serverStream.Context())
 
-	s.log(fmt.Sprintf("Handling %v with %v", fullMethodName, outgoingCtx))
+	auth := ""
+	md, ok := metadata.FromIncomingContext(outgoingCtx)
+	if ok {
+		authHeaders, ok := md["auth"]
+		if ok {
+			if len(authHeaders) == 1 {
+				auth = authHeaders[0]
+			} else {
+				s.log(fmt.Sprintf("WEIRD %v", authHeaders))
+			}
+
+		}
+	}
+
+	s.log(fmt.Sprintf("Handling %v with %v, %v", fullMethodName, outgoingCtx, auth))
 	if fullMethodName != "/login.LoginService/Login" {
 		return fmt.Errorf("%v is an unauthorized request", fullMethodName)
 	}
