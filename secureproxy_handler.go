@@ -45,13 +45,13 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 	}
 	s.passes[fullMethodName]++
 	parts := strings.Split(fullMethodName[1:], ".")
+	outgoingCtx := getCtx(serverStream.Context())
 
-	s.log(fmt.Sprintf("Handling %v", fullMethodName))
+	s.log(fmt.Sprintf("Handling %v with %v", fullMethodName, outgoingCtx))
 	if fullMethodName != "/login.LoginService/Login" {
 		return fmt.Errorf("%v is an unauthorized request", fullMethodName)
 	}
 
-	outgoingCtx := getCtx(serverStream.Context())
 	backendConn, err := grpc.Dial("discovery:///"+parts[0], grpc.WithInsecure(), grpc.WithCodec(Codec()))
 	if err != nil {
 		return err
