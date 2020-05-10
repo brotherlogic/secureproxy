@@ -78,8 +78,8 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 
 	s.log(fmt.Sprintf("Handling %v with %v, %v", fullMethodName, outgoingCtx, auth))
 	if fullMethodName != "/login.LoginService/Login" {
-		if s.authorize(outgoingCtx, auth) != nil {
-			return fmt.Errorf("%v is an unauthorized request", fullMethodName)
+		if err := s.authorize(outgoingCtx, auth); err != nil {
+			return fmt.Errorf("%v is an unauthorized request: %v", fullMethodName, err)
 		}
 	}
 
