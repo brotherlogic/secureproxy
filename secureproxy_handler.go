@@ -12,6 +12,8 @@ import (
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/resolver"
 
+	lpb "github.com/brotherlogic/login/proto"
+
 	_ "google.golang.org/grpc/encoding/gzip"
 )
 
@@ -27,8 +29,21 @@ var (
 )
 
 type handler struct {
-	passes map[string]int
-	log    func(string)
+	passes  map[string]int
+	log     func(string)
+	dialOut func(string) (*grpc.ClientConn, error)
+}
+
+func (s *handler) authorize(ctx context.Context, auth string) error {
+	conn, err := s.dialOut("login")
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+
+	client := lpb.NewLoginServiceClient(conn)
+	_, err = client.Authenticate(ctx, &lpb.AuthenticateRequest{Token: auth})
+	return err
 }
 
 func getCtx(ctx context.Context) context.Context {
@@ -63,7 +78,9 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 
 	s.log(fmt.Sprintf("Handling %v with %v, %v", fullMethodName, outgoingCtx, auth))
 	if fullMethodName != "/login.LoginService/Login" {
-		return fmt.Errorf("%v is an unauthorized request", fullMethodName)
+		if s.authorize(outgoingCtx, auth) != nil {
+			return fmt.Errorf("%v is an unauthorized request", fullMethodName)
+		}
 	}
 
 	backendConn, err := grpc.Dial("discovery:///"+parts[0], grpc.WithInsecure(), grpc.WithCodec(Codec()))
