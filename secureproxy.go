@@ -34,8 +34,8 @@ func Init() *Server {
 	s := &Server{
 		GoServer: &goserver.GoServer{},
 		cmap:     make(map[string]interface{}),
-		dialler:  &prodDialler{},
 	}
+	s.dialler = &prodDialler{hdial: s.FDialServer}
 
 	s.buildClients()
 
@@ -129,13 +129,15 @@ func (s *Server) serveUp(port int) error {
 }
 
 type dialler interface {
-	dial() (*grpc.ClientConn, error)
+	dial(ctx context.Context) (*grpc.ClientConn, error)
 }
 
-type prodDialler struct{}
+type prodDialler struct {
+	hdial func(ctx context.Context, server string) (*grpc.ClientConn, error)
+}
 
-func (p *prodDialler) dial() (*grpc.ClientConn, error) {
-	return grpc.Dial("discovery:///secureproxy", grpc.WithInsecure())
+func (p *prodDialler) dial(ctx context.Context) (*grpc.ClientConn, error) {
+	return p.hdial(ctx, "secureproxy")
 }
 
 func main() {
@@ -163,6 +165,6 @@ func main() {
 		}
 	}()
 
-	server.handler = handler{passes: make(map[string]int), log: server.Log, dialOut: server.NewBaseDial}
+	server.handler = handler{passes: make(map[string]int), log: server.Log, dialOut: server.FDialServer}
 	fmt.Printf("%v", server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(server.handler.handler)))
 }

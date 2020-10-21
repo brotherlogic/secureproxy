@@ -31,7 +31,7 @@ type testDialler struct {
 	fail bool
 }
 
-func (t *testDialler) dial() (*grpc.ClientConn, error) {
+func (t *testDialler) dial(ctx context.Context) (*grpc.ClientConn, error) {
 	if t.fail {
 		return nil, fmt.Errorf("Built to fail")
 	}
@@ -60,6 +60,10 @@ func (t *testBeerServer) DeleteBeer(ctx context.Context, in *bspb.DeleteBeerRequ
 }
 
 func (t *testBeerServer) Consolidate(ctx context.Context, in *bspb.ConsolidateRequest, opts ...grpc.CallOption) (*bspb.ConsolidateResponse, error) {
+	return nil, nil
+}
+
+func (t *testBeerServer) Update(ctx context.Context, in *bspb.UpdateRequest, opts ...grpc.CallOption) (*bspb.UpdateResponse, error) {
 	return nil, nil
 }
 

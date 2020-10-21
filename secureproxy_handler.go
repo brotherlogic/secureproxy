@@ -6,20 +6,14 @@ import (
 	"io"
 	"strings"
 
-	"github.com/brotherlogic/goserver/utils"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
-	"google.golang.org/grpc/resolver"
 
 	lpb "github.com/brotherlogic/login/proto"
 
 	_ "google.golang.org/grpc/encoding/gzip"
 )
-
-func init() {
-	resolver.Register(&utils.DiscoveryClientResolverBuilder{})
-}
 
 var (
 	clientStreamDescForProxying = &grpc.StreamDesc{
@@ -31,11 +25,12 @@ var (
 type handler struct {
 	passes  map[string]int
 	log     func(string)
-	dialOut func(string) (*grpc.ClientConn, error)
+	dialOut func(ctx context.Context, server string) (*grpc.ClientConn, error)
+	dial    func(host string, opts ...grpc.DialOption) (*grpc.ClientConn, error)
 }
 
 func (s *handler) authorize(ctx context.Context, auth string) error {
-	conn, err := s.dialOut("login")
+	conn, err := s.dialOut(ctx, "login")
 	if err != nil {
 		return err
 	}
@@ -83,7 +78,7 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 		}
 	}
 
-	backendConn, err := grpc.Dial("discovery:///"+parts[0], grpc.WithInsecure(), grpc.WithCodec(Codec()))
+	backendConn, err := s.dial(parts[0], grpc.WithCodec(Codec()))
 	if err != nil {
 		return err
 	}
