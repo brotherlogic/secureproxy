@@ -96,6 +96,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 
 	// Straight through return (200 OK)
 	if len(parts) != 2 || req.Method != "POST" {
+		s.Log(fmt.Sprintf("PARTS %v %v", len(parts), req.Method))
 		return
 	}
 
