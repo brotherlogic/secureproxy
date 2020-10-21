@@ -35,7 +35,7 @@ func Init() *Server {
 		GoServer: &goserver.GoServer{},
 		cmap:     make(map[string]interface{}),
 	}
-	s.dialler = &prodDialler{hdial: s.FDialServer}
+	s.dialler = &prodDialler{hdial: s.FDial}
 
 	s.buildClients()
 
@@ -133,11 +133,11 @@ type dialler interface {
 }
 
 type prodDialler struct {
-	hdial func(ctx context.Context, server string) (*grpc.ClientConn, error)
+	hdial func(server string) (*grpc.ClientConn, error)
 }
 
 func (p *prodDialler) dial(ctx context.Context) (*grpc.ClientConn, error) {
-	return p.hdial(ctx, "secureproxy")
+	return p.hdial("localhost:50040")
 }
 
 func main() {
