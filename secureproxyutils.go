@@ -18,7 +18,7 @@ func (s *Server) handle(ctx context.Context, service, method, data string) (stri
 		return "", err
 	}
 
-	conn, err := s.dialler.dial()
+	conn, err := s.dialler.dial(ctx)
 	if err != nil {
 		return "", err
 	}
