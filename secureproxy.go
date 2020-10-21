@@ -11,12 +11,13 @@ import (
 	"time"
 
 	"github.com/brotherlogic/goserver"
+	"github.com/brotherlogic/goserver/utils"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
 	bspb "github.com/brotherlogic/beerserver/proto"
+	dpb "github.com/brotherlogic/dashboard/proto"
 	pbg "github.com/brotherlogic/goserver/proto"
-	"github.com/brotherlogic/goserver/utils"
 	lpb "github.com/brotherlogic/login/proto"
 )
 
@@ -44,6 +45,7 @@ func Init() *Server {
 func (s *Server) buildClients() {
 	s.cmap["beerserver.BeerCellarService"] = bspb.NewBeerCellarServiceClient
 	s.cmap["login.LoginService"] = lpb.NewLoginServiceClient
+	s.cmap["dashboard.DashboardService"] = dpb.NewDashboardServiceClient
 }
 
 func (s *Server) add(key string, val interface{}) {
