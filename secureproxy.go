@@ -90,7 +90,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	resp.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	resp.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 
-	s.Log(fmt.Sprintf("Handling Request: %v with %v", req.URL.Path, req.Header["auth"]))
+	s.Log(fmt.Sprintf("Handling Request: %v with %v -> %+v", req.URL.Path, req.Header.Get("auth"), req.Header))
 	time.Sleep(time.Second * 2)
 	// Remove the / prefix
 	parts := strings.Split(req.URL.Path[1:], "/")
