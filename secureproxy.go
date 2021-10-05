@@ -110,7 +110,7 @@ func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	service := parts[0]
 	method := parts[1]
 
-	ctx, cancel := utils.ManualContext("secureproxy", "secureproxy", time.Minute*5, false)
+	ctx, cancel := utils.ManualContext("secureproxy", time.Minute*5)
 	defer cancel()
 	res, err := s.handle(ctx, service, method, string(bodyd))
 
