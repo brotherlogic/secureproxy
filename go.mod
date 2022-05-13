@@ -3,12 +3,13 @@ module github.com/brotherlogic/secureproxy
 go 1.16
 
 require (
-	github.com/brotherlogic/beerserver v0.0.0-20210831003726-ec0e1101e52d
+	github.com/brotherlogic/beerserver v0.0.0-20220308210245-92a62fbf6b12
 	github.com/brotherlogic/dashboard v0.0.0-20201019184009-dcdf7f3807ad
-	github.com/brotherlogic/goserver v0.0.0-20211122204226-83dd5b358113
-	github.com/brotherlogic/login v0.0.0-20201027031247-1b10f2c32d67
-	github.com/brotherlogic/recordadder v0.0.0-20211123154956-af3997e8aa6c
+	github.com/brotherlogic/dstore v0.0.0-20220512212939-90762d03f7a8 // indirect
+	github.com/brotherlogic/gobuildslave v0.0.0-20220512205339-f52fa263e9a3 // indirect
+	github.com/brotherlogic/goserver v0.0.0-20220504162159-8b49fc551bfb
+	github.com/brotherlogic/login v0.0.0-20220424205425-016a5f0a55a8
 	github.com/golang/protobuf v1.5.2
-	golang.org/x/net v0.0.0-20211118161319-6a13c67c3ce4
-	google.golang.org/grpc v1.42.0
+	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4
+	google.golang.org/grpc v1.46.0
 )
