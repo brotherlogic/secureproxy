@@ -150,10 +150,10 @@ func main() {
 		log.SetOutput(ioutil.Discard)
 	}
 	server := Init()
-	server.PrepServer()
+	server.PrepServer("secureproxy")
 	server.Register = server
 
-	err := server.RegisterServerV2("secureproxy", true, true)
+	err := server.RegisterServerV2(true)
 	if err != nil {
 		return
 	}
