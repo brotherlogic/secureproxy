@@ -164,8 +164,8 @@ github.com/brotherlogic/datastore v0.0.0-20220602132013-510fcd32c9c5/go.mod h1:n
 github.com/brotherlogic/datastore v0.0.0-20220604175725-6d0854cc39a8/go.mod h1:H2y4Obec8E0df+uyQK2IPYq/CTLpLrXWUSLmBGVYCsI=
 github.com/brotherlogic/datastore v0.0.0-20220808165149-29c99c74a9d1/go.mod h1:IouqTsBpMb8BzDT46jnaOJECXad/qdlkdI3xNJiWI+s=
 github.com/brotherlogic/datastore v0.0.0-20220809015254-9f76ff135d3d/go.mod h1:AzaY4NJl/ZfFTsdxN3mNuFaL/znGDk9BmYsTyf3suJw=
-github.com/brotherlogic/datastore v0.0.0-20220811190014-b8a3ac319a25 h1:JVCGlLsd25KBtVYwanHYeHStyQxbBXk75/1DcInKolQ=
-github.com/brotherlogic/datastore v0.0.0-20220811190014-b8a3ac319a25/go.mod h1:Png/BmGeMFzCxQWi8J/SJulqBhPCwcvq/WKI7N+4lSA=
+github.com/brotherlogic/datastore v0.0.0-20220812150224-84a964c99ca8 h1:iqNVG2eFnxRi6182pH6vZ6lsMDL22AX3tOz8rFHs2CY=
+github.com/brotherlogic/datastore v0.0.0-20220812150224-84a964c99ca8/go.mod h1:uqE1nJ4L1xkoIIMjsAhKKXTKYRIVUNW9Eb1Ih/SSftU=
 github.com/brotherlogic/discovery v0.0.0-20200925011539-74a8dc203ba4/go.mod h1:W9XhDhsvBgeIgnOKgcWmtFilO549fuIhRMlVHiXAC9k=
 github.com/brotherlogic/discovery v0.0.0-20210531005423-1d609c4f6278/go.mod h1:W9XhDhsvBgeIgnOKgcWmtFilO549fuIhRMlVHiXAC9k=
 github.com/brotherlogic/discovery v0.0.0-20210603130245-be477d62024e/go.mod h1:W9XhDhsvBgeIgnOKgcWmtFilO549fuIhRMlVHiXAC9k=
@@ -1815,8 +1815,8 @@ google.golang.org/genproto v0.0.0-20220803205849-8f55acc8769f/go.mod h1:iHe1svFL
 google.golang.org/genproto v0.0.0-20220805133916-01dd62135a58/go.mod h1:iHe1svFLAZg9VWz891+QbRMwUv9O/1Ww+/mngYeThbc=
 google.golang.org/genproto v0.0.0-20220808145710-bf34ca4dd83a/go.mod h1:dbqgFATTzChvnt+ujMdZwITVAJHFtfyN1qUhDqEiIlk=
 google.golang.org/genproto v0.0.0-20220808204814-fd01256a5276/go.mod h1:dbqgFATTzChvnt+ujMdZwITVAJHFtfyN1qUhDqEiIlk=
-google.golang.org/genproto v0.0.0-20220810155839-1856144b1d9c h1:IooGDWedfLC6KLczH/uduUsKQP42ZZYhKx+zd50L1Sk=
-google.golang.org/genproto v0.0.0-20220810155839-1856144b1d9c/go.mod h1:dbqgFATTzChvnt+ujMdZwITVAJHFtfyN1qUhDqEiIlk=
+google.golang.org/genproto v0.0.0-20220812140447-cec7f5303424 h1:zZnTt15U44/Txe/9cN/tVbteBkPMiyXK48hPsKRmqj4=
+google.golang.org/genproto v0.0.0-20220812140447-cec7f5303424/go.mod h1:dbqgFATTzChvnt+ujMdZwITVAJHFtfyN1qUhDqEiIlk=
 google.golang.org/grpc v1.17.0/go.mod h1:6QZJwpn2B+Zp71q/5VxRsJ6NXXVCE5NRUHRo+f3cWCs=
 google.golang.org/grpc v1.19.0/go.mod h1:mqu4LbDTu4XGKhr4mRzUsmM4RtVoemTSY81AxZiDr8c=
 google.golang.org/grpc v1.20.0/go.mod h1:chYK+tFQF0nDUGJgXMSgLCQk3phJEuONr2DCgLDdAQM=
