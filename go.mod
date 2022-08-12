@@ -8,7 +8,6 @@ require (
 	github.com/brotherlogic/datastore v0.0.0-20220811190014-b8a3ac319a25 // indirect
 	github.com/brotherlogic/goserver v0.0.0-20220802151516-4b60a60b3020
 	github.com/brotherlogic/login v0.0.0-20220704153121-9afd8cbc0f54
-	github.com/brotherlogic/recordadder v0.0.0-20220622002137-2008ab57ca5c
 	github.com/golang/protobuf v1.5.2
 	golang.org/x/net v0.0.0-20220811182439-13a9a731de15
 	google.golang.org/grpc v1.48.0
