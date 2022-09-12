@@ -11,7 +11,7 @@ import (
 )
 
 func (s *Server) handle(ctx context.Context, service, method, data string) (string, error) {
-	s.Log(fmt.Sprintf("Handling %v/%v with %v", service, method, data))
+	s.CtxLog(ctx, fmt.Sprintf("Handling %v/%v with %v", service, method, data))
 
 	clientf, err := s.buildClient(service)
 	if err != nil {

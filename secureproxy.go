@@ -86,36 +86,37 @@ func (s *Server) GetState() []*pbg.State {
 }
 
 func (s *Server) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
+	ctx, cancel := utils.ManualContext("secureproxy", time.Minute*5)
+	defer cancel()
+
 	resp.Header().Set("Access-Control-Allow-Origin", "*")
 	resp.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 	resp.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 
-	s.Log(fmt.Sprintf("Handling Request: %v with %v -> %+v", req.URL.Path, req.Header.Get("auth"), req.Header))
+	s.CtxLog(ctx, fmt.Sprintf("Handling Request: %v with %v -> %+v", req.URL.Path, req.Header.Get("auth"), req.Header))
 	time.Sleep(time.Second * 2)
 	// Remove the / prefix
 	parts := strings.Split(req.URL.Path[1:], "/")
 
 	// Straight through return (200 OK)
 	if len(parts) != 2 || req.Method != "POST" {
-		s.Log(fmt.Sprintf("PARTS %v %v", len(parts), req.Method))
+		s.CtxLog(ctx, fmt.Sprintf("PARTS %v %v", len(parts), req.Method))
 		return
 	}
 
 	defer req.Body.Close()
 	bodyd, err := ioutil.ReadAll(req.Body)
 	if err != nil {
-		s.Log(fmt.Sprintf("Cannot read body: %v", err))
+		s.CtxLog(ctx, fmt.Sprintf("Cannot read body: %v", err))
 	}
 
 	service := parts[0]
 	method := parts[1]
 
-	ctx, cancel := utils.ManualContext("secureproxy", time.Minute*5)
-	defer cancel()
 	res, err := s.handle(ctx, service, method, string(bodyd))
 
 	if err != nil {
-		s.Log(fmt.Sprintf("Error in handler: %v", err))
+		s.CtxLog(ctx, fmt.Sprintf("Error in handler: %v", err))
 		resp.WriteHeader(501)
 		resp.Write([]byte(fmt.Sprintf("%v", err)))
 		return
@@ -165,6 +166,6 @@ func main() {
 		}
 	}()
 
-	server.handler = handler{passes: make(map[string]int), log: server.Log, dialOut: server.FDialServer}
+	server.handler = handler{passes: make(map[string]int), log: server.CtxLog, dialOut: server.FDialServer}
 	fmt.Printf("%v", server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(server.handler.handler)))
 }

@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"io"
 	"strings"
+	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 
+	"github.com/brotherlogic/goserver/utils"
 	lpb "github.com/brotherlogic/login/proto"
 
 	_ "google.golang.org/grpc/encoding/gzip"
@@ -24,7 +26,7 @@ var (
 
 type handler struct {
 	passes  map[string]int
-	log     func(string)
+	log     func(context.Context, string)
 	dialOut func(ctx context.Context, server string) (*grpc.ClientConn, error)
 	dial    func(host string, opts ...grpc.DialOption) (*grpc.ClientConn, error)
 }
@@ -49,6 +51,8 @@ func getCtx(ctx context.Context) context.Context {
 }
 
 func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error {
+	ctx, cancel := utils.ManualContext("sp-handler", time.Minute)
+	defer cancel()
 	fullMethodName, ok := grpc.MethodFromServerStream(serverStream)
 	if !ok {
 		return fmt.Errorf("Bad name")
@@ -65,13 +69,13 @@ func (s *handler) handler(srv interface{}, serverStream grpc.ServerStream) error
 			if len(authHeaders) == 1 {
 				auth = authHeaders[0]
 			} else {
-				s.log(fmt.Sprintf("WEIRD %v", authHeaders))
+				s.log(ctx, fmt.Sprintf("WEIRD %v", authHeaders))
 			}
 
 		}
 	}
 
-	s.log(fmt.Sprintf("Handling %v with %v, %v", fullMethodName, outgoingCtx, auth))
+	s.log(ctx, fmt.Sprintf("Handling %v with %v, %v", fullMethodName, outgoingCtx, auth))
 	if fullMethodName != "/login.LoginService/Login" {
 		if err := s.authorize(outgoingCtx, auth); err != nil {
 			return fmt.Errorf("%v is an unauthorized request: %v", fullMethodName, err)
