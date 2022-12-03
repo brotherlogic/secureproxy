@@ -1146,8 +1146,8 @@ github.com/brotherlogic/logging v0.0.0-20221202192522-272c073522e4/go.mod h1:pxn
 github.com/brotherlogic/logging v0.0.0-20221202193700-ab45a01adda2/go.mod h1:CBQOFGmZKt5c3Hw+2is84nFLApWzCmf6W1OACocEv0Q=
 github.com/brotherlogic/logging v0.0.0-20221202195452-16317cca2122 h1:QCT/u+myq5a4gHJVs9UmpFymOwhPjTIWRzg+UMsqyhM=
 github.com/brotherlogic/logging v0.0.0-20221202195452-16317cca2122/go.mod h1:w3czJsczZYW7PWd4nZCdrFInhbNG1/1lyXcrJTcuKXk=
-github.com/brotherlogic/login v0.0.0-20221202194458-eb26d943df8e h1:qp0jbP4xEh3WILgrsJjKtwfFW71oe7D3Ae+gBia5Iks=
-github.com/brotherlogic/login v0.0.0-20221202194458-eb26d943df8e/go.mod h1:S0Xsc2e5U+HrdSQ3t67R4bk2NnGSiJztrhWGfmZQWOQ=
+github.com/brotherlogic/login v0.0.0-20221203202157-7cc2b5b2d0b9 h1:kOJdcC+AKGCCZKPoeuGvBn18OxGS9TXBs5RAkobHs3Q=
+github.com/brotherlogic/login v0.0.0-20221203202157-7cc2b5b2d0b9/go.mod h1:Xvc2q4tai18K5i2XuUQP40R+gRo6vMhiOVRXGLzJeZI=
 github.com/brotherlogic/monitor v0.0.0-20200610021023-f01db8d3fdc3/go.mod h1:u7mUgaaQtesPrqDRlCz6K4Dc9kK1LPYS7QjIJbiHERU=
 github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 h1:hxu2T9JspE76sL3XAx/CNtA9bOO6QCEJkyG9rBXFEVA=
 github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6/go.mod h1:babny4VO2GqFwjXqhJsP4a6la4XJeMT6f4BgLBPq4G8=
