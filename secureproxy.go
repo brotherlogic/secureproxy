@@ -21,7 +21,7 @@ import (
 	lpb "github.com/brotherlogic/login/proto"
 )
 
-//Server main server type
+// Server main server type
 type Server struct {
 	*goserver.GoServer
 	handler handler
@@ -167,5 +167,8 @@ func main() {
 	}()
 
 	server.handler = handler{passes: make(map[string]int), log: server.CtxLog, dialOut: server.FDialServer}
-	fmt.Printf("%v", server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(server.handler.handler)))
+	err = server.Serve(grpc.CustomCodec(Codec()), grpc.UnknownServiceHandler(server.handler.handler))
+	if err != nil {
+		fmt.Printf("%v\n", err)
+	}
 }
