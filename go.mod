@@ -8,7 +8,7 @@ require (
 	github.com/brotherlogic/beerserver v0.0.0-20220613002145-3a77014c5968
 	github.com/brotherlogic/dashboard v0.0.0-20201019184009-dcdf7f3807ad
 	github.com/brotherlogic/goserver v0.0.0-20240826215223-fccbac46b3d4
-	github.com/brotherlogic/login v0.0.0-20240826163830-49306c1b3b9a
+	github.com/brotherlogic/login v0.0.0-20240902170822-dff0add6df70
 	github.com/golang/protobuf v1.5.4
 	golang.org/x/net v0.28.0
 	google.golang.org/grpc v1.66.0
@@ -24,7 +24,7 @@ require (
 	github.com/brotherlogic/githubridge v0.2802.0 // indirect
 	github.com/brotherlogic/gobuildslave v0.0.0-20240902030315-d6057f4839a9 // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
-	github.com/brotherlogic/lock v0.0.0-20240826163627-068472f741cf // indirect
+	github.com/brotherlogic/lock v0.0.0-20240902163947-d3af11c66057 // indirect
 	github.com/brotherlogic/logging v0.0.0-20240830210252-dcf5843fc20e // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
