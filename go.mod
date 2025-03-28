@@ -10,22 +10,22 @@ require (
 	github.com/brotherlogic/goserver v0.0.0-20250123145056-95c6fbb2310a
 	github.com/brotherlogic/login v0.0.0-20241212004534-d36051c609d7
 	github.com/golang/protobuf v1.5.4
-	golang.org/x/net v0.37.0
+	golang.org/x/net v0.38.0
 	google.golang.org/grpc v1.71.0
 )
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/brotherlogic/buildserver v0.0.0-20250321160403-ec7e532a6572 // indirect
+	github.com/brotherlogic/buildserver v0.0.0-20250321220955-f3f4a1fcaf4c // indirect
 	github.com/brotherlogic/datastore v0.0.0-20250313015544-917b63bdd6ff // indirect
 	github.com/brotherlogic/discovery v0.0.0-20241109204028-02908558af09 // indirect
-	github.com/brotherlogic/dstore v0.0.0-20250321170910-c34fe8d0fec4 // indirect
-	github.com/brotherlogic/githubcard v0.0.0-20250321163919-9ffdfbc150d0 // indirect
+	github.com/brotherlogic/dstore v0.0.0-20250328173226-98a639793b5a // indirect
+	github.com/brotherlogic/githubcard v0.0.0-20250321203056-fccf4040d86e // indirect
 	github.com/brotherlogic/githubridge v0.2852.0 // indirect
-	github.com/brotherlogic/gobuildslave v0.0.0-20250321162957-5ed59f2a9cc2 // indirect
+	github.com/brotherlogic/gobuildslave v0.0.0-20250328173409-435bb2e6595f // indirect
 	github.com/brotherlogic/keystore v0.0.0-20240508161349-814b3200b126 // indirect
-	github.com/brotherlogic/lock v0.0.0-20250321163501-af5e95864098 // indirect
-	github.com/brotherlogic/logging v0.0.0-20250321164137-904ac8278408 // indirect
+	github.com/brotherlogic/lock v0.0.0-20250321201738-8e3baa5d9bff // indirect
+	github.com/brotherlogic/logging v0.0.0-20250328175350-0af5fa8d0f97 // indirect
 	github.com/brotherlogic/monitor v0.0.0-20221025152653-c10877c5f9e6 // indirect
 	github.com/brotherlogic/versionserver v0.0.0-20221025154054-c9bcd41be2f2 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
@@ -39,6 +39,6 @@ require (
 	github.com/struCoder/pidusage v0.2.1 // indirect
 	golang.org/x/sys v0.31.0 // indirect
 	golang.org/x/text v0.23.0 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250313205543-e70fdf4c4cb4 // indirect
-	google.golang.org/protobuf v1.36.5 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250324211829-b45e905df463 // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 )
